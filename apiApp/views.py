@@ -1,8 +1,8 @@
 from django.db.models import RestrictedError
 from rest_framework import viewsets, status
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
+from rest_framework.exceptions import NotFound, PermissionDenied
 from rest_framework.response import Response
-from rest_framework.exceptions import PermissionDenied
 
 from adminApp.models import Terapia
 from terapeutaApp.models import Terapeuta
@@ -29,7 +29,7 @@ class EliminacionProtegidaMixin:
                            'Cancela o reasigna esas reservas antes de eliminarlo.'},
                 status=status.HTTP_409_CONFLICT,
             )
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'detail': f'"{obj}" fue eliminado correctamente.'}, status=status.HTTP_200_OK)
 
 
 class TerapiaViewSet(EliminacionProtegidaMixin, viewsets.ModelViewSet):
@@ -76,14 +76,8 @@ class ReservaViewSet(viewsets.ModelViewSet):
                 {'detail': 'Solo se pueden eliminar reservas ya canceladas. Cancela la cita primero.'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        return super().destroy(request, *args, **kwargs)
-
-    @action(detail=True, methods=['post'])
-    def cancelar(self, request, pk=None):
-        reserva = self.get_object()
-        reserva.estado = 'CANCELADA'
-        reserva.save()
-        return Response(self.get_serializer(reserva).data)
+        self.perform_destroy(reserva)
+        return Response({'detail': 'La reserva fue eliminada correctamente.'}, status=status.HTTP_200_OK)
 
     @action(detail=True, methods=['post'])
     def cancelar(self, request, pk=None):
@@ -107,3 +101,8 @@ class ReservaViewSet(viewsets.ModelViewSet):
         reserva.estado = nuevo
         reserva.save()
         return Response(self.get_serializer(reserva).data)
+
+
+@api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
+def recurso_no_encontrado(request, ruta=''):
+    raise NotFound('El recurso solicitado no existe en esta API.')
