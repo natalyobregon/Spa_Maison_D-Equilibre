@@ -2,6 +2,7 @@ from django.db.models import RestrictedError
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.exceptions import PermissionDenied
 
 from adminApp.models import Terapia
 from terapeutaApp.models import Terapeuta
@@ -81,5 +82,28 @@ class ReservaViewSet(viewsets.ModelViewSet):
     def cancelar(self, request, pk=None):
         reserva = self.get_object()
         reserva.estado = 'CANCELADA'
+        reserva.save()
+        return Response(self.get_serializer(reserva).data)
+
+    @action(detail=True, methods=['post'])
+    def cancelar(self, request, pk=None):
+        reserva = self.get_object()
+        reserva.estado = 'CANCELADA'
+        reserva.save()
+        return Response(self.get_serializer(reserva).data)
+
+    @action(detail=True, methods=['post'], url_path='estado')
+    def cambiar_estado(self, request, pk=None):
+        if obtener_rol(request.user) != ADMINISTRADOR:
+            raise PermissionDenied('Solo los administradores pueden cambiar el estado de una reserva.')
+        reserva = self.get_object()
+        nuevo = request.data.get('estado')
+        validos = [codigo for codigo, _ in Reserva.ESTADOS]
+        if nuevo not in validos:
+            return Response(
+                {'estado': f'Estado inválido. Opciones: {", ".join(validos)}.'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        reserva.estado = nuevo
         reserva.save()
         return Response(self.get_serializer(reserva).data)
