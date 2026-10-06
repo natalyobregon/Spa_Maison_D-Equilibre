@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
 """
 Django settings for config project.
 
@@ -14,6 +18,10 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from django.contrib.messages import constants as message_constants
+<<<<<<< HEAD
+=======
+from django.core.exceptions import ImproperlyConfigured
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
 
 # Cargar variables del archivo .env
 load_dotenv()
@@ -26,12 +34,25 @@ TEMPLATES_DIR = os.path.join(BASE_DIR,'templates')
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+<<<<<<< HEAD
 SECRET_KEY = 'django-insecure-l8w0c+zx5d@b(-a3(kp9^($(jesej$bphj@i0k4y$g6^i)51w4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
+=======
+SECRET_KEY = os.getenv('SECRET_KEY')
+if not SECRET_KEY:
+    raise ImproperlyConfigured('Falta SECRET_KEY en el archivo .env')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+# Solo es True si en el .env dice exactamente DEBUG=True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+
+# Hosts separados por coma en el .env, ej: ALLOWED_HOSTS=localhost,127.0.0.1
+ALLOWED_HOSTS = [h.strip() for h in os.getenv('ALLOWED_HOSTS', '').split(',') if h.strip()]
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
 
 
 # Application definition
@@ -107,6 +128,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+<<<<<<< HEAD
+=======
+        'OPTIONS': {
+            'min_length': 7,
+        },
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -114,9 +141,17 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+<<<<<<< HEAD
 ]
 
 
+=======
+    {
+        'NAME': 'adminApp.validators.ComplejidadPasswordValidator',
+    },
+]
+
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
@@ -150,4 +185,8 @@ MESSAGE_TAGS = {
 }
 
 MEDIA_URL = '/media/'
+<<<<<<< HEAD
 MEDIA_ROOT = BASE_DIR / 'media'
+=======
+MEDIA_ROOT = BASE_DIR / 'media'
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8

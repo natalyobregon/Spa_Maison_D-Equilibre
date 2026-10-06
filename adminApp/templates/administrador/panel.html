@@ -32,6 +32,7 @@
 
 <h2 class="mb-4">Resumen general</h2>
 
+<<<<<<< HEAD
 {% if sin_datos %}
 <div class="alert alert-warning">
   No se pudo cargar la información de resumen o de citas. Verifica que los archivos
@@ -44,24 +45,44 @@
     <div class="stat-card tono-1">
       <p class="mb-1 small">Terapeutas activos</p>
       <p class="fs-3 fw-bold mb-0">{{ resumen.terapeutas_activos }}</p>
+=======
+<div class="row g-3 mb-4">
+  <div class="col-6 col-md-3">
+    <div class="stat-card tono-1">
+      <p class="mb-1 small">Terapeutas registrados</p>
+      <p class="fs-3 fw-bold mb-0">{{ total_terapeutas }}</p>
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
     </div>
   </div>
   <div class="col-6 col-md-3">
     <div class="stat-card tono-2">
+<<<<<<< HEAD
       <p class="mb-1 small">Salas en uso</p>
       <p class="fs-3 fw-bold mb-0">{{ resumen.salas_en_uso }}</p>
+=======
+      <p class="mb-1 small">Terapias registradas</p>
+      <p class="fs-3 fw-bold mb-0">{{ total_terapias }}</p>
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
     </div>
   </div>
   <div class="col-6 col-md-3">
     <div class="stat-card tono-3">
       <p class="mb-1 small">Citas de hoy</p>
+<<<<<<< HEAD
       <p class="fs-3 fw-bold mb-0">{{ resumen.citas_hoy }}</p>
+=======
+      <p class="fs-3 fw-bold mb-0">{{ citas_hoy }}</p>
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
     </div>
   </div>
   <div class="col-6 col-md-3">
     <div class="stat-card tono-4">
       <p class="mb-1 small">Ingresos del día</p>
+<<<<<<< HEAD
       <p class="fs-3 fw-bold mb-0">${{ resumen.ingresos_dia }}</p>
+=======
+      <p class="fs-3 fw-bold mb-0">${{ ingresos_dia }}</p>
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
     </div>
   </div>
 </div>
@@ -75,7 +96,11 @@
         <h5 class="mb-2">Control de recepción</h5>
         <p class="text-muted small mb-0">
           Desde este panel el administrador supervisa la operación diaria del spa:
+<<<<<<< HEAD
           citas agendadas, ocupación de salas y desempeño general del equipo.
+=======
+          citas agendadas y desempeño general del equipo.
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
         </p>
         {% if info_imagen %}
         <p class="text-muted small mt-2 mb-0">
@@ -89,7 +114,11 @@
 
   <div class="col-lg-7">
     <div class="card card-spa p-3 h-100">
+<<<<<<< HEAD
       <h5 class="mb-3">Citas por día de la semana</h5>
+=======
+      <h5 class="mb-3">Citas por día de la semana (actual)</h5>
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
       <div class="d-flex align-items-end justify-content-between grafico-citas">
         {% for barra in grafico_citas %}
         <div class="barra-columna text-center">
@@ -103,21 +132,35 @@
   </div>
 </div>
 
+<<<<<<< HEAD
 <h4 class="mb-3">Citas agendadas</h4>
+=======
+<h4 class="mb-3">Próximas citas agendadas</h4>
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
 <div class="table-responsive">
   <table class="table table-spa align-middle">
     <thead>
       <tr>
+<<<<<<< HEAD
         <th>Día</th>
         <th>Hora</th>
         <th>Terapia</th>
         <th>Cliente</th>
         <th>Sala</th>
+=======
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Terapia</th>
+        <th>Cliente</th>
+        <th>Terapeuta</th>
+        <th>Estado</th>
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
       </tr>
     </thead>
     <tbody>
       {% for cita in citas %}
       <tr>
+<<<<<<< HEAD
         <td>{{ cita.dia }}</td>
         <td>{{ cita.hora }}</td>
         <td>{{ cita.terapia }}</td>
@@ -127,6 +170,24 @@
       {% empty %}
       <tr>
         <td colspan="5" class="text-center text-muted">No hay citas registradas.</td>
+=======
+        <td>{{ cita.fecha|date:"d-m-Y" }}</td>
+        <td>{{ cita.hora|time:"H:i" }}</td>
+        <td>{{ cita.terapia.nombre }}</td>
+        <td>{{ cita.usuario.get_full_name|default:cita.usuario.username }}</td>
+        <td>{{ cita.terapeuta.nombre }}</td>
+        <td>
+          {% if cita.estado == 'CONFIRMADA' or cita.estado == 'COMPLETADA' %}
+          <span class="badge badge-activo">{{ cita.get_estado_display }}</span>
+          {% else %}
+          <span class="badge badge-libre">{{ cita.get_estado_display }}</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="text-center text-muted">No hay citas agendadas próximamente.</td>
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
       </tr>
       {% endfor %}
     </tbody>

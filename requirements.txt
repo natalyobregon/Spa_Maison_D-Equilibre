@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿asgiref==3.12.1
+=======
+asgiref==3.12.1
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
 cffi==2.1.1
 cryptography==50.0.1
 Django==6.1
@@ -9,3 +13,8 @@ PyMySQL==1.2.3
 python-dotenv==1.2.3
 sqlparse==0.6.0
 tzdata==2026.3
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8

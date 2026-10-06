@@ -41,9 +41,12 @@
 
           {% if user.is_authenticated %}
             {% if rol_usuario == 'Administrador' %}
+<<<<<<< HEAD
             <li class="nav-item">
               <a class="nav-link" href="{% url 'panel_admin' %}"></a>
             </li>
+=======
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
             {% elif rol_usuario == 'Terapeuta' %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'rendimiento_terapeuta' %}">Mi agenda</a>

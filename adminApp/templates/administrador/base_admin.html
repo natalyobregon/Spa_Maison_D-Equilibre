@@ -92,6 +92,7 @@
       <div class="col-md-3 col-lg-2 p-0 sidebar-admin">
         <a href="{% url 'panel_admin' %}"
            class="{% if seccion_activa == 'panel' %}activo{% endif %}">
+<<<<<<< HEAD
           Resumen general
         </a>
         <a href="{% url 'lista_terapias' %}"
@@ -105,15 +106,33 @@
         <a href="{% url 'turnos_admin' %}"
            class="{% if seccion_activa == 'turnos' %}activo{% endif %}">
           Turnos y salas
+=======
+          Resumen General
+        </a>
+        <a href="{% url 'lista_terapias' %}"
+           class="{% if seccion_activa == 'terapias' %}activo{% endif %}">
+          Gestión de Terapias
+        </a>
+        <a href="{% url 'lista_terapeutas' %}"
+           class="{% if seccion_activa == 'terapeutas' %}activo{% endif %}">
+          Gestión de Terapeutas
+        </a>
+        <a href="{% url 'turnos_admin' %}"
+           class="{% if seccion_activa == 'turnos' %}activo{% endif %}">
+          Reservas por terapeuta
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
         </a>
         <a href="{% url 'clientes_admin' %}"
            class="{% if seccion_activa == 'clientes' %}activo{% endif %}">
           Gestion de Clientes
         </a>
+<<<<<<< HEAD
         <a href="{% url 'perfil_admin' %}"
            class="{% if seccion_activa == 'perfil' %}activo{% endif %}">
           Mi perfil
         </a>
+=======
+>>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
       </div>
 
       <div class="col-md-9 col-lg-10 py-4">
