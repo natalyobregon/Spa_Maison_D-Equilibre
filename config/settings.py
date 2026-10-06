@@ -178,6 +178,15 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+        'EXCEPTION_HANDLER': 'apiApp.exceptions.manejador_excepciones',
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '20/min',   # frena la fuerza bruta contra /api/token/
+        'user': '120/min',
+    },
 }
 
 REST_FRAMEWORK = {

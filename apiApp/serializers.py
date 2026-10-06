@@ -1,3 +1,4 @@
+import os
 from django.utils import timezone
 from rest_framework import serializers
 
@@ -6,6 +7,23 @@ from terapeutaApp.models import Terapeuta
 from usuarioApp.models import Reserva
 from usuarioApp.forms import HORAS_DISPONIBLES
 
+EXT_IMAGEN = {'.jpg', '.jpeg', '.png', '.webp'}
+EXT_CERTIFICADO = {'.pdf', '.jpg', '.jpeg', '.png'}
+MAX_IMAGEN_MB = 3
+MAX_CERTIFICADO_MB = 5
+
+
+def validar_archivo(archivo, extensiones, max_mb, etiqueta):
+    """Restringe tipo y tamaño de un archivo subido."""
+    if archivo is None:
+        return archivo
+    extension = os.path.splitext(archivo.name)[1].lower()
+    if extension not in extensiones:
+        raise serializers.ValidationError(
+            f'{etiqueta}: formato no permitido. Usa: {", ".join(sorted(extensiones))}.')
+    if archivo.size > max_mb * 1024 * 1024:
+        raise serializers.ValidationError(f'{etiqueta}: el archivo supera los {max_mb} MB.')
+    return archivo
 
 # ---------- Mantenedor 1: Terapia ----------
 class TerapiaSerializer(serializers.ModelSerializer):
@@ -17,7 +35,9 @@ class TerapiaSerializer(serializers.ModelSerializer):
     def validate_precio(self, value):
         if value <= 0:
             raise serializers.ValidationError('El precio debe ser mayor a 0.')
-        return value
+
+    def validate_imagen(self, value):
+        return validar_archivo(value, EXT_IMAGEN, MAX_IMAGEN_MB, 'La imagen')
 
 
 # ---------- Mantenedor 2: Terapeuta ----------
@@ -41,6 +61,12 @@ class TerapeutaAdminSerializer(serializers.ModelSerializer):
 
     def validate_correo(self, value):
         return value.strip().lower()
+
+    def validate_foto(self, value):
+        return validar_archivo(value, EXT_IMAGEN, MAX_IMAGEN_MB, 'La foto')
+
+    def validate_certificado(self, value):
+        return validar_archivo(value, EXT_CERTIFICADO, MAX_CERTIFICADO_MB, 'El certificado')
 
 
 # ---------- Transacción: Reserva ----------
