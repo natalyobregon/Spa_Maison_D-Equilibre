@@ -9,15 +9,6 @@ from django.contrib import messages
 from django.contrib.auth.models import User, Group
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.db.models import Q
-<<<<<<< HEAD
-from django.utils.dateparse import parse_date
-from django.utils import timezone
-# Importamos los modelos de las otras apps y de la propia usuarioApp
-from adminApp.models import Terapia
-from terapeutaApp.models import Terapeuta
-from .models import Reserva
-from .forms import ReservaForm, PerfilUsuarioForm, RegistroForm
-=======
 from django.utils.dateparse import parse_date, parse_time
 from django.utils import timezone
 from django.http import JsonResponse
@@ -25,7 +16,6 @@ from adminApp.models import Terapia
 from terapeutaApp.models import Terapeuta
 from .models import Reserva
 from .forms import ReservaForm, PerfilUsuarioForm, RegistroForm, HORAS_DISPONIBLES
->>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
 from .roles import obtener_rol, ADMINISTRADOR, TERAPEUTA
 
 # --- FUNCIÓN AUXILIAR PARA REDIRECCIÓN SEGÚN ROL DE USUARIO ---
@@ -48,14 +38,11 @@ def _cargar_json(nombre_archivo):
 
 
 # --- VISTAS PÚBLICAS Y DE CONSULTA ---
-<<<<<<< HEAD
-=======
 def _cargar_json(nombre_archivo):
     """Carga un archivo JSON desde la carpeta static/data/ del proyecto."""
     ruta_archivo = os.path.join(settings.BASE_DIR, 'static', 'data', nombre_archivo)
     with open(ruta_archivo, 'r', encoding='utf-8') as file:
         return json.load(file)
->>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
 
 def inicio(request):
     """Página de inicio del Spa."""
@@ -111,10 +98,6 @@ def login_view(request):
             login(request, usuario)
             messages.success(request, f"¡Bienvenido/a de nuevo, {usuario.username}!")
 
-<<<<<<< HEAD
-            # Si venía de una página protegida, vuelve ahí (solo si la URL es segura)
-=======
->>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
             if next_url and url_has_allowed_host_and_scheme(next_url, allowed_hosts={request.get_host()}):
                 return redirect(next_url)
             return _redirect_by_role(usuario)
@@ -147,17 +130,10 @@ def registro_view(request):
     return render(request, 'usuario/registro.html', {'form': form})
 
 def logout_view(request):
-<<<<<<< HEAD
-    """Cierra la sesión activa del usuario."""
-    logout(request)
-    messages.info(request, "Has cerrado sesión correctamente.")
-    return redirect('inicio_usuario')
-=======
     """Cierra la sesión activa del usuario y vuelve a la página de inicio de sesión."""
     logout(request)
     messages.info(request, "Has cerrado sesión correctamente.")
     return redirect('login')
->>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
 
 @login_required
 def mi_panel(request):
@@ -167,8 +143,6 @@ def mi_panel(request):
 # --- CRUD DE RESERVAS DEL CLIENTE ---
 
 @login_required
-<<<<<<< HEAD
-=======
 def ajax_terapeutas_de_terapia(request, terapia_id):
     """
     Devuelve en JSON los terapeutas que realizan una terapia especifica.
@@ -219,7 +193,6 @@ def ajax_horas_ocupadas(request):
 
 
 @login_required
->>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
 def crear_reserva(request):
     """Permite al cliente crear/agendar una nueva reserva."""
     initial_data = {}
@@ -241,10 +214,6 @@ def crear_reserva(request):
         form = ReservaForm(initial=initial_data, user=request.user)
 
     return render(request, 'usuario/reserva_form.html', {'form': form, 'titulo': 'Agendar Cita'})
-<<<<<<< HEAD
-=======
-
->>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
 @login_required
 def mis_reservas(request):
     """Lista las reservas del cliente con búsqueda y filtros."""
