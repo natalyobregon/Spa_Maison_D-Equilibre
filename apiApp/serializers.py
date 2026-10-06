@@ -55,6 +55,10 @@ class ReservaSerializer(serializers.ModelSerializer):
                   'terapeuta_nombre', 'fecha', 'hora', 'estado', 'observaciones', 'creado']
         read_only_fields = ['id', 'usuario', 'estado', 'creado']
 
+    def get_usuario(self, obj) -> str:
+    # Nombre real del cliente; el username (identificador de login) no se expone
+        return obj.usuario.get_full_name() or obj.usuario.username
+
     def validate_fecha(self, value):
         cambia = self.instance is None or value != self.instance.fecha
         if cambia and value < timezone.localdate():
