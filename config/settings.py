@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'apiApp',
     'usuarioApp',
     'adminApp',
     'terapeutaApp',
@@ -161,3 +163,16 @@ MESSAGE_TAGS = {
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Django REST Framework
+REST_FRAMEWORK = {
+    # Solo JSON; la interfaz navegable de DRF solo en desarrollo
+    'DEFAULT_RENDERER_CLASSES': (
+        ['rest_framework.renderers.JSONRenderer']
+        + (['rest_framework.renderers.BrowsableAPIRenderer'] if DEBUG else [])
+    ),
+    # Seguro por defecto: todo endpoint exige autenticación
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
