@@ -10,11 +10,7 @@
     <p class="text-muted small mb-0">Completa los siguientes datos para agendar tu sesión de bienestar.</p>
   </div>
 
-<<<<<<< HEAD
-  <form method="post" novalidate>
-=======
   <form method="post" novalidate data-reserva-id="{{ form.instance.pk|default:'' }}">
->>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
     {% csrf_token %}
 
     {% if form.non_field_errors %}
@@ -45,8 +41,6 @@
   </form>
 
 </div>
-<<<<<<< HEAD
-=======
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -172,5 +166,4 @@
     }
   });
 </script>
->>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
 {% endblock %}

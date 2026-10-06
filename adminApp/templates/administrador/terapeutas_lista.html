@@ -12,17 +12,6 @@
   </a>
 </div>
 
-<<<<<<< HEAD
-<form method="get" class="mb-4" style="max-width: 420px;">
-  <div class="input-group">
-    <input type="text" name="q" class="form-control" value="{{ query }}"
-           placeholder="Buscar por nombre, profesión o correo...">
-    <button type="submit" class="btn btn-outline-secondary">Buscar</button>
-    {% if query %}
-    <a href="{% url 'lista_terapeutas' %}" class="btn btn-outline-secondary">Limpiar</a>
-    {% endif %}
-  </div>
-=======
 <form method="get" class="mb-4 d-flex flex-wrap gap-2 align-items-start">
   <div class="input-group" style="max-width: 360px;">
     <input type="text" name="q" class="form-control" value="{{ query }}"
@@ -40,7 +29,6 @@
   {% if query or profesion_sel %}
   <a href="{% url 'lista_terapeutas' %}" class="btn btn-outline-secondary">Limpiar filtros</a>
   {% endif %}
->>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
 </form>
 
 <p class="mb-3">

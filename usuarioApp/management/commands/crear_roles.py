@@ -9,11 +9,7 @@ PERMISOS_POR_ROL = {
         ('adminApp', 'terapia', CRUD),
         ('terapeutaApp', 'terapeuta', CRUD),
         ('usuarioApp', 'reserva', CRUD),
-<<<<<<< HEAD
         ('auth', 'user', CRUD),          # gestión de usuarios
-=======
-        ('auth', 'user', CRUD),          
->>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
     ],
     'Terapeuta': [
         ('adminApp', 'terapia', ['view']),
@@ -21,11 +17,7 @@ PERMISOS_POR_ROL = {
         ('usuarioApp', 'reserva', ['view']),
     ],
     'Cliente': [
-<<<<<<< HEAD
         ('usuarioApp', 'reserva', CRUD),  # las vistas limitan a sus propias reservas
-=======
-        ('usuarioApp', 'reserva', CRUD),  
->>>>>>> 319e90c77a57cae8a1f0d1eafa3ec41119082ca8
     ],
 }
 
